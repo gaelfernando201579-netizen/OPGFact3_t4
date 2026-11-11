@@ -20,14 +20,12 @@ public class JugadorController {
         this.equipoService = equipoService;
     }
 
-    // LEER (Listar todos)
     @GetMapping
     public String listarJugadores(Model model) {
         model.addAttribute("jugadores", jugadorService.listarTodos());
         return "lista";
     }
 
-    // CREAR (Mostrar formulario)
     @GetMapping("/nuevo")
     public String mostrarFormularioNuevo(Model model) {
         Jugador jugador = new Jugador();
@@ -37,7 +35,6 @@ public class JugadorController {
         return "formulario";
     }
 
-    // CREAR/ACTUALIZAR (Guardar en BD)
     @PostMapping("/guardar")
     public String guardarJugador(@ModelAttribute Jugador jugador) {
         Long equipoId = (jugador.getEquipo() != null) ? jugador.getEquipo().getId() : null;
@@ -46,7 +43,6 @@ public class JugadorController {
         return "redirect:/jugadores";
     }
 
-    // ACTUALIZAR (Cargar datos en formulario)
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditar(@PathVariable Long id, Model model) {
         Jugador jugador = jugadorService.obtenerPorId(id);
@@ -58,7 +54,6 @@ public class JugadorController {
         return "formulario";
     }
 
-    // ELIMINAR
     @GetMapping("/eliminar/{id}")
     public String eliminarJugador(@PathVariable Long id) {
         jugadorService.eliminar(id);
