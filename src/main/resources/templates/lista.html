@@ -35,7 +35,7 @@
                             <span class="badge bg-secondary fs-6" th:text="${jugador.dorsal}"></span>
                         </td>
                         <!-- Aquí se refleja la relación Muchos a Uno (@ManyToOne) -->
-                        <td th:text="${jugador.equipo.nombre}"></td>
+                        <td th:text="${jugador.equipo != null ? jugador.equipo.nombre : 'Sin equipo'}"></td>
                         <td class="text-center">
                             <a th:href="@{/jugadores/editar/{id}(id=${jugador.id})}" class="btn btn-warning btn-sm">Editar</a>
                             <a th:href="@{/jugadores/eliminar/{id}(id=${jugador.id})}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar a este jugador?');">Eliminar</a>

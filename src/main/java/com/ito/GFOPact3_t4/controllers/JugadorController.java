@@ -1,5 +1,6 @@
 package com.ito.GFOPact3_t4.controllers;
 
+import com.ito.GFOPact3_t4.models.Equipo;
 import com.ito.GFOPact3_t4.models.Jugador;
 import com.ito.GFOPact3_t4.service.EquipoService;
 import com.ito.GFOPact3_t4.service.JugadorService;
@@ -29,7 +30,9 @@ public class JugadorController {
     // CREAR (Mostrar formulario)
     @GetMapping("/nuevo")
     public String mostrarFormularioNuevo(Model model) {
-        model.addAttribute("jugador", new Jugador());
+        Jugador jugador = new Jugador();
+        jugador.setEquipo(new Equipo());
+        model.addAttribute("jugador", jugador);
         model.addAttribute("equipos", equipoService.listarTodos());
         return "formulario";
     }
@@ -37,6 +40,8 @@ public class JugadorController {
     // CREAR/ACTUALIZAR (Guardar en BD)
     @PostMapping("/guardar")
     public String guardarJugador(@ModelAttribute Jugador jugador) {
+        Long equipoId = (jugador.getEquipo() != null) ? jugador.getEquipo().getId() : null;
+        jugador.setEquipo(equipoId != null ? equipoService.obtenerPorId(equipoId) : null);
         jugadorService.guardar(jugador);
         return "redirect:/jugadores";
     }
@@ -44,7 +49,11 @@ public class JugadorController {
     // ACTUALIZAR (Cargar datos en formulario)
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditar(@PathVariable Long id, Model model) {
-        model.addAttribute("jugador", jugadorService.obtenerPorId(id));
+        Jugador jugador = jugadorService.obtenerPorId(id);
+        if (jugador != null && jugador.getEquipo() == null) {
+            jugador.setEquipo(new Equipo());
+        }
+        model.addAttribute("jugador", jugador);
         model.addAttribute("equipos", equipoService.listarTodos());
         return "formulario";
     }

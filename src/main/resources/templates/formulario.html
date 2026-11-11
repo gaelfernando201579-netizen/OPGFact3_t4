@@ -35,7 +35,7 @@
                     <!-- El select lee la lista de equipos y asigna la FK al jugador -->
                     <select class="form-select" id="equipo" th:field="*{equipo.id}" required>
                         <option value="" disabled selected>Selecciona un equipo...</option>
-                        <option th:each="eq : ${equipos}" th:value="${eq.id}" th:text="${eq.nombre}"></option>
+                        <option th:each="equipo : ${equipos}" th:value="${equipo.id}" th:text="${equipo.nombre}"></option>
                     </select>
                 </div>
 

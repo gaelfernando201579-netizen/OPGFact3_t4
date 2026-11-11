@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "equipos")
 public class Equipo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,4 +30,11 @@ public class Equipo {
         this.nombre = nombre;
     }
 
+    public List<Jugador> getJugadores() {
+        return jugadores;
+    }
+
+    public void setJugadores(List<Jugador> jugadores) {
+        this.jugadores = jugadores;
+    }
 }

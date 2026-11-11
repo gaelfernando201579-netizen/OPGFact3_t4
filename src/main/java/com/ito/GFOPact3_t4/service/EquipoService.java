@@ -20,4 +20,8 @@ public class EquipoService {
     public List<Equipo> listarTodos() {
         return equipoRepository.findAll();
     }
+
+    public Equipo obtenerPorId(Long id) {
+        return equipoRepository.findById(id).orElse(null);
+    }
 }
